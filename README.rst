@@ -7,7 +7,9 @@ Examples
 
 Basic GET to list all VMs
 -------------------------
+
 .. code-block:: python
+
     import os
     import requests
 
@@ -27,7 +29,9 @@ Basic GET to list all VMs
 
 Basic POST to power off all VMs
 -------------------------------
+
 .. code-block:: python
+
     import os
     import requests
 
@@ -53,11 +57,13 @@ Installation
 Via PyPI
 
 .. code-block:: bash
+
     $ pip install requests_vzauth 
 
 Via git
 
 .. code-block:: bash
+
     $ git clone https://github.com/replicant0wnz/requests-vzauth' 
     $ cd requests-vzauth; python ./setup.py install
 
