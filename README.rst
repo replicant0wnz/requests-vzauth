@@ -64,7 +64,7 @@ Via git
 
 .. code-block:: bash
 
-    $ git clone https://github.com/replicant0wnz/requests-vzauth' 
+    $ git clone https://github.com/replicant0wnz/requests-vzauth
     $ cd requests-vzauth; python ./setup.py install
 
 Requirements
