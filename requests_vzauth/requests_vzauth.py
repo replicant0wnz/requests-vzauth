@@ -17,16 +17,16 @@ class vzAuth(AuthBase):
             self.content_type = ''
 
     """Return a hashed request using the secret key"""
-    def build_request(self, string, method):
-        string = "%s\n%s\n%s\n\n%s\n" % (method, self.content_type, self.timestamp, string)
+    def build_request(self, string, method, timestamp):
+        string = "%s\n%s\n%s\n\n%s\n" % (method, self.content_type, timestamp, string)
         signature = b64encode(hmac.new(key=self.secret, msg=string, digestmod=hashlib.sha256).digest())
         completed_signature = "CloudApi AccessKey=%s SignatureType=HmacSHA256 Signature=%s" % (self.access, signature)
         return completed_signature
 
     def __call__(self, r):
-        self.timestamp = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
         if self.content_type:
             r.headers['Content-Type'] = self.content_type
-        r.headers['x-tmrk-authorization'] = self.build_request(self.request, r.method)
-        r.headers['Date'] = self.timestamp
+        timestamp = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
+        r.headers['x-tmrk-authorization'] = self.build_request(self.request, r.method, timestamp)
+        r.headers['Date'] = timestamp
         return r
