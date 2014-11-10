@@ -15,7 +15,6 @@ class vzAuth(AuthBase):
             self.content_type = content_type
         else:
             self.content_type = ''
-        self.timestamp = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     """Return a hashed request using the secret key"""
     def build_request(self, string, method):
@@ -25,6 +24,7 @@ class vzAuth(AuthBase):
         return completed_signature
 
     def __call__(self, r):
+        self.timestamp = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
         if self.content_type:
             r.headers['Content-Type'] = self.content_type
         r.headers['x-tmrk-authorization'] = self.build_request(self.request, r.method)
